@@ -17,6 +17,7 @@ config:
   webroot: web
   php: 7.3
   database: mariadb
+  xdebug: true
 
 services:
   d7db:
@@ -30,6 +31,9 @@ services:
   appserver:
     build:
       - "cd /app && composer install"
+#    overrides:
+#      environment:
+#        PHP_IDE_CONFIG: "serverName=localhost"
 
 tooling:
   phplint:

@@ -1,0 +1,10 @@
+name: 'Drupal 8 Migration Boilerplate Code'
+type: module
+description: 'Drupal 8 Migration Boilerplate Code'
+core: 8.x
+package: 'Custom'
+dependencies:
+  - drupal:migrate_drupal
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
+  - migrate_upgrade:migrate_upgrade
