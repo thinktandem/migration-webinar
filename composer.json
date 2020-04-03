@@ -1,0 +1,103 @@
+{
+    "name": "drupal-composer/drupal-project",
+    "description": "Project template for Drupal 8 projects with composer",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "",
+            "role": ""
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "composer/installers": "^1.2",
+        "cweagans/composer-patches": "^1.6.5",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
+        "drupal/console": "^1.0.2",
+        "drupal/core": "^8.8.0",
+        "drupal/core-composer-scaffold": "^8.8.0",
+        "drush/drush": "^9.0.0",
+        "vlucas/phpdotenv": "^4.0",
+        "webflo/drupal-finder": "^1.0.0",
+        "webmozart/path-util": "^2.3",
+        "zaporylie/composer-drupal-optimizations": "^1.0"
+    },
+    "require-dev": {
+        "behat/behat": "3.*",
+        "behat/mink": "1.8.0 | 1.7.1.1 | 1.7.x-dev",
+        "behat/mink-extension": "^2.2",
+        "behat/mink-goutte-driver": "~1.2",
+        "drupal/coder": "^8.3",
+        "drupal/drupal-extension": "^4.0",
+        "drush-ops/behat-drush-endpoint": "^1.2.0",
+        "jcalderonzumba/gastonjs": "~1.2.0",
+        "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
+        "mglaman/phpstan-drupal": "^0.11.2",
+        "mikey179/vfsstream": "~1.2",
+        "overtrue/phplint": "^1.2.0",
+        "phpstan/phpstan-deprecation-rules": "^0.11.0",
+        "phpunit/phpunit": "^7.5",
+        "squizlabs/php_codesniffer": "3.*",
+        "symfony/css-selector": "^3.4.0",
+        "drupal/core-dev": "^8.8.0"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "classmap": [
+            "scripts/composer/ScriptHandler.php"
+        ],
+        "files": ["load.environment.php"]
+    },
+    "scripts": {
+        "fix": "phpcbf --standard=Drupal --ignore=*/node_modules/*,/vendor/*,*.md,*.tpl.php,*.css,*.scss --extensions=install,module,php,inc web/modules/custom web/themes/custom web/profiles/custom .mannequin.php",
+        "lint": [
+          "phplint",
+          "phpcs -n --report=full --standard=Drupal --ignore=*/node_modules/*,/vendor/*,*.md,*.tpl.php,*.css,*.scss --extensions=install,module,php,inc web/modules/custom web/themes/custom web/profiles/custom .mannequin.php"
+        ],
+        "pre-install-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+        ],
+        "pre-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+        ],
+        "post-install-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ],
+        "post-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ]
+    },
+    "extra": {
+        "composer-exit-on-patch-failure": true,
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/{$name}": ["type:drupal-drush"]
+        },
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            }
+        }
+    }
+}

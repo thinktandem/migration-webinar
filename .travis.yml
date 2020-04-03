@@ -1,0 +1,77 @@
+language: php
+
+# This can be set to whatever you want since Lando is taking care of your deps
+php:
+  - 7.2
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+    - $HOME/.composer/cache/repo
+    - $TMPDIR/phpstan/cache
+
+services:
+  - docker
+
+before_install:
+
+  # Install Hyperdrive
+  - sudo apt-get -y update
+  - sudo apt-get -y install cgroup-bin curl
+  - sudo bash -c "curl -Ls https://github.com/lando/hyperdrive/releases/download/v0.6.1/hyperdrive > /usr/local/bin/hyperdrive"
+  - sudo chmod +x /usr/local/bin/hyperdrive
+
+script:
+  # Add Repo key to prevent hyperdrive install errors.
+  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B05F25D762E3157
+
+  # Setup hyperdrive
+  - hyperdrive -y --name "James T. Kirk" --email kirk@enterprise.mil
+
+  # Start Lando
+  - lando start -v
+
+  # Run non-db required tests eg linting/code standards/unit tests
+  # Lint the codez
+  - lando phplint
+
+  # Check code standards
+  - lando phpcs --config-set installed_paths /app/vendor/drupal/coder/coder_sniffer
+  - lando phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=install,module,php,inc,theme web/modules/custom web/themes/custom web/profiles
+
+  # Unit tests
+  - lando phpunit -c web/core --testsuite unit --exclude-group Composer web/modules/custom
+  - lando phpunit -c web/core --testsuite unit --exclude-group Composer web/themes/custom
+
+  # Check for Drupal 9 Deprecations
+  - lando phpstan analyse web/modules/custom web/themes/custom
+
+  # Sleep for 10 seconds so certs can load
+  - sleep 10
+
+  # Do platform stuff
+  # Verify we are logged in
+  - lando platform auth:info
+
+  # Generate and post an ssh key and then wait because Platform seems to
+  # refresh keys every 90 seconds
+  # NOTE: If you are getting consistent DB pull failures then you might want to increase the sleep
+  - lando platform ssh-key:add -y
+  - sleep 200
+
+  # Dump and import the database
+  - lando platform db:dump --gzip --file=dump.sql.gz --project=$PLATFORMSH_PROJECT_ID --environment=master --identity-file=/var/www/.ssh/id_rsa
+  - lando db-import dump.sql.gz
+  - rm -f dump.sql.gz
+
+  # This could be potentially problematic if someone adds their own ssh key after we generate one above
+  # and before we run the below
+  - lando ssh -c "/var/www/.platformsh/bin/platform ssh-key:delete \$(/var/www/.platformsh/bin/platform ssh-keys --format=csv | tail -1 | cut -d ',' -f 1)"
+
+  # Check to see if we succeeded
+  - cd web
+  - lando drush status && lando drush cr
+  - cd ..
+
+  # Run db required tests eg behat
+  #- lando behat --config=/app/tests/behat-lando.yml

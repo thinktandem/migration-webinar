@@ -1,0 +1,57 @@
+name: migration-webinar
+
+excludes:
+  - drush
+  - scripts
+  - vendor
+  - web/core
+  - web/modules/contrib
+  - web/profiles/contrib
+  - web/sites/default/files
+  - web/themes/contrib
+
+recipe: drupal8
+
+config:
+  via: nginx
+  webroot: web
+  php: 7.3
+  database: mariadb
+
+services:
+  d7db:
+    type: mariadb
+    creds:
+      user: drupal7db
+      password: drupal7db
+      database: drupal7db
+    portforward: true
+
+  appserver:
+    build:
+      - "cd /app && composer install"
+
+tooling:
+  phplint:
+    service: appserver
+    cmd: /app/vendor/bin/phplint
+  phpcs:
+    service: appserver
+    cmd: /app/vendor/bin/phpcs
+  phpunit:
+    service: appserver
+    cmd: /app/vendor/bin/phpunit
+  phpstan:
+    service: appserver
+    cmd: /app/vendor/bin/phpstan
+  behat:
+    service: appserver
+    cmd: /app/vendor/bin/behat
+  test:
+    service: appserver
+    description: Run Tests Locally
+    cmd:
+      - appserver: composer lint
+      - appserver: /app/vendor/bin/phpunit -c web/core --testsuite=unit --exclude-group Composer web/modules/custom
+      - appserver: /app/vendor/bin/phpunit -c web/core --testsuite unit --exclude-group Composer web/themes/custom
+      - appserver: /app/vendor/bin/phpstan analyse web/modules/custom web/themes/custom

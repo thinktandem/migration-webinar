@@ -1,0 +1,14 @@
+uuid: 04da32a6-79c0-4db2-98b6-927a367de0d2
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: vymHlgJy26BuI5GGj9-IXjwR3dRC5C0tij4BpWJnoqw
+id: feedback
+label: 'Website feedback'
+recipients:
+  - labboy0276@yahoo.com
+reply: ''
+weight: 0
+message: 'Your message has been sent.'
+redirect: ''

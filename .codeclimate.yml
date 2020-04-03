@@ -1,0 +1,37 @@
+---
+checks:
+  argument-count:
+    enabled: false
+  method-lines:
+    config:
+      threshold: 40
+  method-complexity:
+    config:
+      threshold: 8
+plugins:
+  phpmd:
+    enabled: true
+    config:
+      file_extensions: "php,inc,module,install,theme"
+      rulesets: ".phpmd.xml"
+    checks:
+      Controversial/Superglobals:
+        enabled: false
+  phpcodesniffer:
+    enabled: true
+    config:
+      file_extensions: "php,inc,module,install,theme"
+      encoding: utf-8
+      standard: "Drupal"
+      ignore_warnings: true
+exclude_patterns:
+  - web/modules/contrib/
+  - web/themes/contrib/
+  - drush/
+  - scripts/
+  - load.environment.php
+  - web/*.php
+  - web/.ht.router.php
+  - web/sites/*.php
+  - web/sites/default/*.php
+  - tests
