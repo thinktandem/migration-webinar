@@ -15,9 +15,9 @@ recipe: drupal8
 config:
   via: nginx
   webroot: web
-  php: 7.3
+  php: 7.2
   database: mariadb
-  xdebug: true
+  xdebug: false
 
 services:
   d7db:
@@ -28,9 +28,9 @@ services:
       database: drupal7db
     portforward: true
 
-  appserver:
-    build:
-      - "cd /app && composer install"
+#  appserver:
+#    build:
+#      - "cd /app && composer install"
 #    overrides:
 #      environment:
 #        PHP_IDE_CONFIG: "serverName=localhost"
