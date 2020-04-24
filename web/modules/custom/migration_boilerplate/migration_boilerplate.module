@@ -34,7 +34,7 @@ function migration_boilerplate_migrate_prepare_row(Row $row, MigrateSourceInterf
 
   // Content Types we are not importing / skipping.
   $skip_types = [
-    // Put stuff here.
+    'comment_node_type_one'
   ];
 
   // Fields to skip for now
@@ -44,7 +44,7 @@ function migration_boilerplate_migrate_prepare_row(Row $row, MigrateSourceInterf
 
   // Entity types to skip for now.
   $entity_skip = [
-    // Put stuff here.
+    'comment_type'
   ];
 
   // Vocab Skip
@@ -133,6 +133,10 @@ function migration_boilerplate_migrate_prepare_row(Row $row, MigrateSourceInterf
       }
 
       if ($migration->id() === 'upgrade_d7_field_formatter_settings') {
+        if ($row->getDestinationProperty('view_mode') === NULL) {
+          throw new MigrateSkipRowException('', TRUE);
+        }
+
         // Some typical legacy formatter type conversions.
         $formatter = $row->getSourceProperty('formatter');
         switch ($formatter['type']) {

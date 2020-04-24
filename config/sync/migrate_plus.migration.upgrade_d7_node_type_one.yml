@@ -1,24 +1,24 @@
-uuid: 2d774279-21f7-47bc-bb08-ba3358978a73
+uuid: c1e2b8d1-587a-4ddc-9f85-d2937c707caa
 langcode: en
 status: true
 dependencies: {  }
-id: upgrade_d7_node_revision_type_one
+id: upgrade_d7_node_type_one
 class: Drupal\migrate\Plugin\Migration
-field_plugin_method: alterFieldFormatterMigration
+field_plugin_method: alterFieldInstanceMigration
 cck_plugin_method: null
 migration_tags:
   - 'Drupal 7'
   - Content
-migration_group: migrate_drupal_7
-label: 'Node revisions (Type One)'
+migration_group: nodes
+label: 'Nodes (Type One)'
 source:
-  plugin: d7_node_revision
+  plugin: d7_node
   node_type: type_one
 process:
   nid:
     -
       plugin: get
-      source: nid
+      source: tnid
   vid:
     -
       plugin: get
@@ -103,9 +103,12 @@ process:
         display: display
         description: description
 destination:
-  plugin: 'entity_revision:node'
+  plugin: 'entity:node'
   default_bundle: type_one
 migration_dependencies:
   required:
-    - upgrade_d7_node_type_one
-  optional: {  }
+    - upgrade_d7_user
+    - upgrade_d7_node_type
+  optional:
+    - upgrade_d7_field_instance
+    - upgrade_d7_comment_field_instance
