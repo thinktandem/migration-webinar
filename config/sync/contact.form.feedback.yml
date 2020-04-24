@@ -1,4 +1,4 @@
-uuid: 28dc5540-55f6-42b5-9797-eaf56fb15db9
+uuid: b78d642f-7f32-4669-b62f-7bc702a9a198
 langcode: en
 status: true
 dependencies: {  }
@@ -7,7 +7,7 @@ _core:
 id: feedback
 label: 'Website feedback'
 recipients:
-  - labboy0276@yahoo.com
+  - john@thinktandem.io
 reply: ''
 weight: 0
 message: 'Your message has been sent.'

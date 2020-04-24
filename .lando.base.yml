@@ -28,9 +28,9 @@ services:
       database: drupal7db
     portforward: true
 
-#  appserver:
-#    build:
-#      - "cd /app && composer install"
+  appserver:
+    build:
+      - "cd /app && composer install"
 #    overrides:
 #      environment:
 #        PHP_IDE_CONFIG: "serverName=localhost"
