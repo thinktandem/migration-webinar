@@ -27,6 +27,12 @@ process:
   changed: changed
   promote: promote
   sticky: sticky
+  field_media:
+    -
+      plugin: sub_process
+      source: field_image
+      process:
+        target_id: fid
   static_map_sub_process_example:
     -
       plugin: sub_process
@@ -77,6 +83,13 @@ process:
       plugin: skip_on_empty
       method: row
       source: whatever_field
+  multiple_paragraphs:
+    -
+      plugin: multiple_migration_lookup
+      source: nid
+      migration:
+        - paragraph_one
+        - paragraph_two
 destination:
   plugin: 'entity:node'
   default_bundle: final_type

@@ -1,0 +1,36 @@
+uuid: a34671db-6a1c-4e10-9506-e5c6d7efb34b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_multiple_paragraphs
+    - node.type.type_one
+    - paragraphs.paragraphs_type.full_text
+    - paragraphs.paragraphs_type.image_and_text
+  module:
+    - entity_reference_revisions
+id: node.type_one.field_multiple_paragraphs
+field_name: field_multiple_paragraphs
+entity_type: node
+bundle: type_one
+label: 'Multiple Paragraphs'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      full_text: full_text
+      image_and_text: image_and_text
+    target_bundles_drag_drop:
+      full_text:
+        enabled: true
+        weight: 3
+      image_and_text:
+        enabled: true
+        weight: 4
+field_type: entity_reference_revisions

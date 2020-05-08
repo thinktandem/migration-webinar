@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.type_one.field_image
     - field.field.node.type_one.field_image_text_paragraph
     - field.field.node.type_one.field_media
+    - field.field.node.type_one.field_multiple_paragraphs
     - field.field.node.type_one.field_text_field
     - field.field.node.type_one.field_text_summary
     - image.style.thumbnail
@@ -73,6 +74,25 @@ content:
       media_types: {  }
     third_party_settings: {  }
     type: media_library_widget
+    region: content
+  field_multiple_paragraphs:
+    type: paragraphs
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+        add_above: '0'
+    third_party_settings: {  }
     region: content
   field_text_field:
     weight: 4

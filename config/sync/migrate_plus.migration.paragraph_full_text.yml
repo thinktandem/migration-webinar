@@ -1,0 +1,47 @@
+uuid: 52b395bd-9883-4dc1-8e8f-02541e049bcb
+langcode: en
+status: true
+dependencies: {  }
+id: paragraph_full_text
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: alterFieldFormatterMigration
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Content
+migration_group: paragraphs
+label: 'Paragraphs (Full Text)'
+source:
+  plugin: d7_node
+  node_type: type_one
+process:
+  langcode:
+    -
+      plugin: default_value
+      source: language
+      default_value: en
+  uid: node_uid
+  status: status
+  created: created
+  field_full_text:
+    -
+      plugin: sub_process
+      source: field_text_summary
+      process:
+        value: value
+        summary: summary
+        format:
+          plugin: static_map
+          source: format
+          default_value: basic_html
+          map:
+            filtered_html: basic_html
+            full_html: full_html
+            plain_text: plain_text
+destination:
+  plugin: 'entity_reference_revisions:paragraph'
+  default_bundle: full_text
+migration_dependencies:
+  required:
+    - upgrade_d7_user
+  optional: {  }
