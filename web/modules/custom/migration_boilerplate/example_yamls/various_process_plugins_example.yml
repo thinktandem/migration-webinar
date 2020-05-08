@@ -1,0 +1,91 @@
+langcode: en
+status: true
+dependencies: {  }
+id: various_process_plugins_examples
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Content
+migration_group: nodes
+label: 'Nodes (Combine)'
+source:
+  plugin: d7_node
+  node_type: type_1
+process:
+  nid: tnid
+  vid: vid
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  title: title
+  uid: node_uid
+  status: status
+  created: created
+  changed: changed
+  promote: promote
+  sticky: sticky
+  static_map_sub_process_example:
+    -
+      plugin: sub_process
+      source: body
+      process:
+        value: value
+        summary: summary
+        format:
+          plugin: static_map
+          source: format
+          default_value: basic_html
+          map:
+            filtered_html: basic_html
+            full_html: full_html
+            plain_text: plain_text
+  date_sub_process_example:
+    -
+      plugin: sub_process
+      source: d7_date_field_array
+      process:
+        value:
+          plugin: format_date
+          from_format: 'Y-m-d\H:i:s'
+          to_format: Y-m-d
+          source: value
+  paragraph_migration_lookup_example:
+    -
+      plugin: sub_process
+      source: field_with_source_ids
+      process:
+        target_id:
+          -
+            plugin: migration_lookup
+            migration: your_paragraph_migration
+            source: target_id
+          -
+            plugin: extract
+            index:
+              - '0'
+        target_revision_id:
+          -
+            plugin: migration_lookup
+            migration: your_paragraph_migration
+            source: target_id
+          -
+            plugin: extract
+            index:
+              - '1'
+  skip_on_empty_example:
+    -
+      plugin: skip_on_empty
+      method: row
+      source: whatever_field
+destination:
+  plugin: 'entity:node'
+  default_bundle: final_type
+migration_dependencies:
+  optional: {  }
+  required:
+    - upgrade_d7_user
+    - upgrade_d7_node_type
+    - upgrade_d7_field_instance

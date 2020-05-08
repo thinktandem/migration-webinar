@@ -76,8 +76,19 @@ process:
       source: comment
   body:
     -
-      plugin: get
+      plugin: sub_process
       source: body
+      process:
+        value: value
+        summary: summary
+        format:
+          plugin: static_map
+          source: format
+          default_value: basic_html
+          map:
+            filtered_html: basic_html
+            full_html: full_html
+            plain_text: plain_text
   field_image:
     -
       plugin: sub_process
@@ -94,8 +105,19 @@ process:
       source: field_text_field
   field_text_summary:
     -
-      plugin: get
+      plugin: sub_process
       source: field_text_summary
+      process:
+        value: value
+        summary: summary
+        format:
+          plugin: static_map
+          source: format
+          default_value: basic_html
+          map:
+            filtered_html: basic_html
+            full_html: full_html
+            plain_text: plain_text
   field_file:
     -
       plugin: sub_process
