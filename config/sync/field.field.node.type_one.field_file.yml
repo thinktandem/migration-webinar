@@ -1,0 +1,27 @@
+uuid: 8f2d2c41-d13a-4b33-b1c2-bf22998476db
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_file
+    - node.type.type_one
+  module:
+    - file
+id: node.type_one.field_file
+field_name: field_file
+entity_type: node
+bundle: type_one
+label: File
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: ''
+  file_extensions: txt
+  max_filesize: ''
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

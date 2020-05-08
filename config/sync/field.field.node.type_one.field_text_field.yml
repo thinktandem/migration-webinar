@@ -1,0 +1,19 @@
+uuid: 17ddc1f8-89fe-41c4-9df6-54d3d2e4393a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_text_field
+    - node.type.type_one
+id: node.type_one.field_text_field
+field_name: field_text_field
+entity_type: node
+bundle: type_one
+label: 'Text Field'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

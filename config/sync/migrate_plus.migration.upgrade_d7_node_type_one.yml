@@ -14,6 +14,8 @@ label: 'Nodes (Type One)'
 source:
   plugin: d7_node
   node_type: type_one
+  constants:
+    sup: trill
 process:
   nid:
     -

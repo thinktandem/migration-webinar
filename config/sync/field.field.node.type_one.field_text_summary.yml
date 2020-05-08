@@ -1,0 +1,23 @@
+uuid: 9ccf1427-8f6a-401f-ae8e-141316bdc833
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_text_summary
+    - node.type.type_one
+  module:
+    - text
+id: node.type_one.field_text_summary
+field_name: field_text_summary
+entity_type: node
+bundle: type_one
+label: 'Text Summary'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary

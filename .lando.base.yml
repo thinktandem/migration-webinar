@@ -19,21 +19,21 @@ config:
   database: mariadb
   xdebug: true
 
-services:
-  d7db:
-    type: mariadb
-    creds:
-      user: drupal7db
-      password: drupal7db
-      database: drupal7db
-    portforward: true
+  services:
+    d7db:
+      type: mariadb
+      creds:
+        user: drupal7db
+        password: drupal7db
+        database: drupal7db
+      portforward: true
 
-  appserver:
-#    build:
-#      - "cd /app && composer install"
-    overrides:
-      environment:
-        PHP_IDE_CONFIG: "serverName=localhost"
+    appserver:
+  #    build:
+  #      - "cd /app && composer install"
+      overrides:
+        environment:
+          PHP_IDE_CONFIG: "serverName=localhost"
 
 tooling:
   phplint:
