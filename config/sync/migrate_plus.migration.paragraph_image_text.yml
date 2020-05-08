@@ -1,0 +1,47 @@
+uuid: 08029ec5-4222-480c-84d4-9edb43d8d12c
+langcode: en
+status: true
+dependencies: {  }
+id: paragraph_image_text
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: alterFieldFormatterMigration
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Content
+migration_group: paragraphs
+label: 'Paragraphs (Image Text)'
+source:
+  plugin: d7_node
+  node_type: type_one
+process:
+  id: tnid
+  langcode:
+    -
+      plugin: default_value
+      source: language
+      default_value: en
+  uid: node_uid
+  status: status
+  created: created
+  field_image:
+    -
+      plugin: sub_process
+      source: field_image
+      process:
+        target_id: fid
+        alt: alt
+        title: title
+        width: width
+        height: height
+  field_text:
+    -
+      plugin: get
+      source: field_text_field
+destination:
+  plugin: 'entity_reference_revisions:paragraph'
+  default_bundle: image_and_text
+migration_dependencies:
+  required:
+    - upgrade_d7_user
+  optional: {  }

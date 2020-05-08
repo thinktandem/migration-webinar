@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies: {  }
+id: paragraph_example
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: alterFieldFormatterMigration
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Content
+migration_group: paragraphs
+label: 'Paragraphs (Example)'
+source:
+  plugin: d7_node
+  node_type: type_one
+process:
+  id: tnid
+  langcode:
+    -
+      plugin: default_value
+      source: language
+      default_value: en
+  uid: node_uid
+  status: status
+  created: created
+  your_field:
+    -
+      plugin: get
+      source: your_field
+destination:
+  plugin: 'entity_reference_revisions:paragraph'
+  default_bundle: your_paragraph
+migration_dependencies:
+  required:
+    - upgrade_d7_user
+  optional: {  }

@@ -52,29 +52,26 @@ process:
           from_format: 'Y-m-d\H:i:s'
           to_format: Y-m-d
           source: value
-  paragraph_migration_lookup_example:
+  paragraph_migration_example/target_id:
     -
-      plugin: sub_process
-      source: field_with_source_ids
-      process:
-        target_id:
-          -
-            plugin: migration_lookup
-            migration: your_paragraph_migration
-            source: target_id
-          -
-            plugin: extract
-            index:
-              - '0'
-        target_revision_id:
-          -
-            plugin: migration_lookup
-            migration: your_paragraph_migration
-            source: target_id
-          -
-            plugin: extract
-            index:
-              - '1'
+      plugin: migration
+      migration: your_paragraph_migration
+      no_stub: true
+      source: tnid
+    -
+      plugin: extract
+      index:
+        - '0'
+  paragraph_migration_example/target_revision_id:
+    -
+      plugin: migration
+      migration: your_paragraph_migration
+      no_stub: true
+      source: tnid
+    -
+      plugin: extract
+      index:
+        - '1'
   skip_on_empty_example:
     -
       plugin: skip_on_empty

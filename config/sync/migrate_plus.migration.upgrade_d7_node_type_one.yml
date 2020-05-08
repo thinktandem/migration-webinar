@@ -126,6 +126,26 @@ process:
         target_id: fid
         display: display
         description: description
+  field_image_text_paragraph/target_id:
+    -
+      plugin: migration
+      migration: paragraph_image_text
+      no_stub: true
+      source: tnid
+    -
+      plugin: extract
+      index:
+        - '0'
+  field_image_text_paragraph/target_revision_id:
+    -
+      plugin: migration
+      migration: paragraph_image_text
+      no_stub: true
+      source: tnid
+    -
+      plugin: extract
+      index:
+        - '1'
 destination:
   plugin: 'entity:node'
   default_bundle: type_one

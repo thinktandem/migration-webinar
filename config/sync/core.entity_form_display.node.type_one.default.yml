@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.type_one.body
     - field.field.node.type_one.field_file
     - field.field.node.type_one.field_image
+    - field.field.node.type_one.field_image_text_paragraph
     - field.field.node.type_one.field_text_field
     - field.field.node.type_one.field_text_summary
     - image.style.thumbnail
@@ -13,6 +14,7 @@ dependencies:
   module:
     - file
     - image
+    - paragraphs
     - path
     - text
 id: node.type_one.default
@@ -49,6 +51,18 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
+    third_party_settings: {  }
+    region: content
+  field_image_text_paragraph:
+    type: entity_reference_paragraphs
+    weight: 121
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     region: content
   field_text_field:
