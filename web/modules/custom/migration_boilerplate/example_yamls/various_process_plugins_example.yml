@@ -60,7 +60,7 @@ process:
           source: value
   paragraph_migration_example/target_id:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: your_paragraph_migration
       no_stub: true
       source: tnid
@@ -70,7 +70,7 @@ process:
         - '0'
   paragraph_migration_example/target_revision_id:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: your_paragraph_migration
       no_stub: true
       source: tnid
