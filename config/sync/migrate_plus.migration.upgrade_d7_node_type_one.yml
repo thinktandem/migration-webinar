@@ -149,7 +149,7 @@ process:
   field_media:
     -
       plugin: sub_process
-      source: field_file
+      source: field_image
       process:
         target_id: fid
 destination:
@@ -162,3 +162,5 @@ migration_dependencies:
   optional:
     - upgrade_d7_field_instance
     - upgrade_d7_comment_field_instance
+    - image_to_media
+    - paragraph_image_text
