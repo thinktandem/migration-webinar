@@ -1,0 +1,28 @@
+uuid: 7365b255-6850-4ef0-934e-51bd1dc94200
+langcode: en
+status: true
+dependencies: {  }
+id: super_trill_table
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: tables
+label: 'Super Trill Tables'
+source:
+  plugin: super_trill
+process:
+  id: id
+  tronic: tronic
+  timestamp: timestamp
+destination:
+  plugin: table
+  table_name: super_trill_d8
+  id_fields:
+    id:
+      type: integer
+  fields:
+    id: id
+    tronic: tronic
+    timestamp: timestamp
+migration_dependencies: {  }

@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Install file for migration boilerplate examples.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function migration_boilerplate_schema() {
+  $schema['super_trill_d8'] = [
+    'description' => 'Table example for the table destination plugin',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key',
+      ],
+      'tronic' => [
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+        'description' => 'Words and stuff',
+      ],
+      'timestamp' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Unix timestamp of when trill occurred',
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
+  return $schema;
+}
