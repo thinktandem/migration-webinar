@@ -1,0 +1,84 @@
+uuid: d11714ec-0cca-4261-977d-abbe6e3cce85
+langcode: en
+status: true
+dependencies: {  }
+id: file_to_media
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: alterFieldInstanceMigration
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Content
+migration_group: files
+label: 'File to Media'
+source:
+  plugin: d7_file
+  scheme: public
+  constants:
+    source_base_path: 'https://migrate-drupal-7.lndo.site/'
+process:
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/source_base_path
+        - filepath
+    -
+      plugin: urlencode
+  destination_basename:
+    plugin: callback
+    callable: basename
+    source: '@source_full_path'
+  destination_basepath:
+    plugin: default_value
+    default_value: 'public://'
+  destination_path:
+    plugin: concat
+    source:
+      - '@destination_basepath'
+      - '@destination_basename'
+  mid: fid
+  bundle:
+    plugin: default_value
+    default_value: image
+  name: name
+  field_media_image/title: title
+  field_media_image/alt: alt
+  field_media_image/target_id:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: '@source_full_path'
+    -
+      plugin: file_copy
+      source:
+        - '@source_full_path'
+        - '@destination_path'
+    -
+      plugin: entity_generate
+      values:
+        uid: uid
+        fid: fid
+  status:
+    -
+      plugin: get
+      source: status
+  created:
+    -
+      plugin: get
+      source: timestamp
+  changed:
+    -
+      plugin: get
+      source: timestamp
+  uid:
+    -
+      plugin: get
+      source: uid
+destination:
+  plugin: 'entity:media'
+  default_bundle: image
+migration_dependencies:
+  required: {  }
+  optional: {  }

@@ -128,7 +128,7 @@ process:
         description: description
   field_image_text_paragraph/target_id:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: paragraph_image_text
       no_stub: true
       source: tnid
@@ -138,7 +138,7 @@ process:
         - '0'
   field_image_text_paragraph/target_revision_id:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: paragraph_image_text
       no_stub: true
       source: tnid
@@ -146,6 +146,12 @@ process:
       plugin: extract
       index:
         - '1'
+  field_media:
+    -
+      plugin: sub_process
+      source: field_file
+      process:
+        target_id: fid
 destination:
   plugin: 'entity:node'
   default_bundle: type_one

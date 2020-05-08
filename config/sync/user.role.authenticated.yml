@@ -14,3 +14,4 @@ permissions:
   - 'post comments'
   - 'skip comment approval'
   - 'use text format filtered_html'
+  - 'view media'
