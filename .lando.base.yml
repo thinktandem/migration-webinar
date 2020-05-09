@@ -29,8 +29,8 @@ config:
       portforward: true
 
     appserver:
-  #    build:
-  #      - "cd /app && composer install"
+      build:
+        - "cd /app && composer install"
       overrides:
         environment:
           PHP_IDE_CONFIG: "serverName=localhost"
